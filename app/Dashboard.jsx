@@ -16,9 +16,6 @@ function Dashboard(props ) {
                 (<div key={item.i}  className="bg-gray-200">{item.name}</div>)
 
             )}
-            {/*<div key="a" className="bg-gray-200">Panel A</div>*/}
-            {/*<div key="b" className="bg-gray-200">Panel B</div>*/}
-
         </ReactGridLayout>
     );
 
