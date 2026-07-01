@@ -10,35 +10,68 @@ import {useState} from "react";
 function Dashboard( props ) {
 
     const [layout, setLayout] = useState([]);
-    const [columns, setColumns] = useState(12);
+    const [columns] = useState(12);
+    const [defaultWidth] = useState(4);
+    const [totalWidgets, setTotalWidgets] = useState(0);
 
     const addWidget = () => {
 
         const maxY = layout.length === 0 ? 0 : Math.max(...layout.map((item) =>  {
             return item.y;
         }));
-        // console.log('maxY: ' + maxY);
 
         const addX = layout.length === 0 ? 0 : Math.max(...layout.map((item) =>  {
             if(item.y === maxY) {
-                return item.x;
+                return item.x + item.w;
             } else return 0;
-        })) + 4;
-        const xValue = addX === 12 ? 0 : addX;
-        const yValue = addX === 12 ? maxY + 1 : maxY;
-        // console.log('layout: ', layout);
-        // console.log('addX: ', addX);
-        const newLayout = [...layout, { i: `key-${layout.length + 1}`, x:xValue, y: yValue, w: 4, h: 2, name: `Panel ${layout.length + 1}` }]
+        }));
+        const xValue = addX > 8 ? 0 : addX;
+        const yValue = addX > columns - defaultWidth ? maxY + 1 : maxY;
+
+        const newLayout = [...layout, { i: `key-${totalWidgets + 1}`, x:xValue, y: yValue, w: 4, h: 2, name: `Panel ${layout.length + 1}` }]
+        setLayout(newLayout);
+        setTotalWidgets(totalWidgets + 1)
+    }
+
+    const handleResize = (newLayout) => {
+        // const updatedLayouts = newLayout.map(widget => {
+        //     const resizeObj = layout.find(item => item.i === widget.i);
+        //     if (resizeObj) {
+        //         return { ...widget, name: resizeObj.name };
+        //     }
+        //     return widget;
+        // });
         setLayout(newLayout);
     }
+
+    const handleCloseItem = (itemId) => {
+        setLayout(currentLayout => currentLayout.filter(item => item.i !== itemId));
+    };
 
     return (
         <>
             <Button onPress={addWidget}>Add a widget</Button>
-            <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={50} width={1000}>
+            <ReactGridLayout className="layout" layout={layout} cols={columns} rowHeight={50} width={1000} onResize={handleResize}>
 
                 {layout.map((item, i) =>
-                    (<div key={item.i}  className="bg-gray-200">{item.name}</div>)
+                    (
+
+                        <div key={item.i}  className="bg-gray-200" style={{fontSize: 14, fontWeight: 'bold',}}>{item.name}
+                            <Button
+                                key={`button-${item.i}`}
+                                onClick={() => handleCloseItem(item.i)}
+                                style={{
+                                    width:  '3px',
+                                    height: '20px',
+                                    position: 'absolute',
+                                    top: '5px',
+                                    right: '5px',
+                                    cursor: 'pointer'
+                                }}
+                            >X
+                            </Button>
+                        </div>
+                    )
 
                 )}
             </ReactGridLayout>
