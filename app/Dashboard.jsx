@@ -52,6 +52,9 @@ function Dashboard( props ) {
 
     return (
         <>
+            <br/>
+            &nbsp;Please select one or more widgets to add to your custom dashboard.
+            <br/><br/>
             <AddWidgetModal onPress={addWidget}/>
             <ReactGridLayout className="layout" layout={layout} cols={columns} rowHeight={50} width={1000} onResize={handleResize}>
 
