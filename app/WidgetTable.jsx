@@ -3,6 +3,7 @@ import { Table} from '@heroui/react';
 
 const WidgetTable = (props) => {
 
+    const {data} = props;
 
     return (<Table>
             <Table.ScrollContainer>
@@ -13,26 +14,16 @@ const WidgetTable = (props) => {
                         <Table.Column>Status</Table.Column>
                     </Table.Header>
                     <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>Kate Moore</Table.Cell>
-                            <Table.Cell>CEO</Table.Cell>
-                            <Table.Cell>Active</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>John Smith</Table.Cell>
-                            <Table.Cell>CTO</Table.Cell>
-                            <Table.Cell>Active</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Sara Johnson</Table.Cell>
-                            <Table.Cell>CMO</Table.Cell>
-                            <Table.Cell>On Leave</Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>Michael Brown</Table.Cell>
-                            <Table.Cell>CFO</Table.Cell>
-                            <Table.Cell>Active</Table.Cell>
-                        </Table.Row>
+                        {data.map((row) => {
+                            return (
+                                <Table.Row key={row.name}>
+                                    {Object.keys(row).map((column) => {
+                                        return <Table.Cell key={row[column]}>{row[column]}</Table.Cell>
+                                    })}
+
+                                </Table.Row>
+                            )
+                        })}
                     </Table.Body>
                 </Table.Content>
             </Table.ScrollContainer>

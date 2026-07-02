@@ -8,6 +8,12 @@ import {useState} from "react";
 import WidgetTable from './WidgetTable'
 import AddWidgetModal from "./AddWidgetModal";
 
+const tableData = [
+    {name: 'Kate Moore', role: 'CEO', status: 'Active'},
+    {name: 'John Smith', role: 'CTO', status: 'Active'},
+    {name: 'Sarah Johnson', role: 'CMO', status: 'On Leave'},
+    {name: 'Michael Brown', role: 'CFO', status: 'Active'},
+]
 
 function Dashboard( props ) {
 
@@ -78,7 +84,7 @@ function Dashboard( props ) {
                             </Button>
                             </div>
                             <div style={{marginTop: 20}}>
-                            <WidgetTable/>
+                            <WidgetTable data={tableData}/>
                             </div>
                         </div>
                     )
