@@ -1,6 +1,11 @@
 "use client";
-import {Button, Dropdown, Label, Modal, Surface} from "@heroui/react";
+import {Button, Dropdown, Label, Modal, Surface, TextField, Input, Header} from "@heroui/react";
+import { useState } from "react";
+
 export function AddWidgetModal(props) {
+
+    const [selected, setSelected] = useState(new Set(["table"]));
+
     return (
         <Modal>
             <Button variant="secondary">Add Widgets</Button>
@@ -14,27 +19,47 @@ export function AddWidgetModal(props) {
                         <Modal.Body className="p-6">
                             <Surface variant="default">
                                 <form className="flex flex-col gap-4">
+                                    <TextField className="w-full" name="name" type="text" variant="secondary">
+                                        <Label>Widget name</Label>
+                                        <Input placeholder="Widget name" />
+                                    </TextField>
                                     <Dropdown>
                                         <Button aria-label="Menu" variant="secondary">
-                                            Widget Types
+                                            Widget type
                                         </Button>
-                                        <Dropdown.Popover slot="close">
-                                            <Dropdown.Menu  onAction={() => props.onPress()}>
-                                                <Dropdown.Item id="new-file" textValue="New file">
-                                                    <Label>Table</Label>
-                                                </Dropdown.Item>
-                                                <Dropdown.Item isDisabled id="copy-link" textValue="Copy link">
-                                                    <Label>Line Chart</Label>
-                                                </Dropdown.Item>
-                                                <Dropdown.Item isDisabled id="edit-file" textValue="Edit file">
-                                                    <Label>Bar Chart</Label>
-                                                </Dropdown.Item>
+                                        <Dropdown.Popover className="min-w-[256px]">
+                                            <Dropdown.Menu
+                                                selectedKeys={selected}
+                                                selectionMode="single"
+                                                onSelectionChange={setSelected}
+                                            >
+                                                <Dropdown.Section>
+                                                    <Header>Select a widget type</Header>
+                                                    <Dropdown.Item id="table" textValue="table">
+                                                        <Dropdown.ItemIndicator />
+                                                        <Label>Table</Label>
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item id="lineChart" textValue="lineChart">
+                                                        <Dropdown.ItemIndicator />
+                                                        <Label>Line Chart</Label>
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item id="barChart" textValue="barChart">
+                                                        <Dropdown.ItemIndicator />
+                                                        <Label>Bar Chart</Label>
+                                                    </Dropdown.Item>
+                                                </Dropdown.Section>
                                             </Dropdown.Menu>
                                         </Dropdown.Popover>
                                     </Dropdown>
                                 </form>
                             </Surface>
                         </Modal.Body>
+                        <Modal.Footer>
+                            <Button slot="close" variant="secondary">
+                                Cancel
+                            </Button>
+                            <Button onPress={() => props.onPress()} slot="close">Add Widget</Button>
+                        </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>
             </Modal.Backdrop>
