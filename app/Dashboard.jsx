@@ -6,6 +6,7 @@ import "react-resizable/css/styles.css";
 import { Button, Table} from '@heroui/react';
 import {useState} from "react";
 import WidgetTable from './WidgetTable'
+import AddWidgetModal from "./AddWidgetModal";
 
 
 function Dashboard( props ) {
@@ -51,7 +52,7 @@ function Dashboard( props ) {
 
     return (
         <>
-            <Button onPress={addWidget}>Add a widget</Button>
+            <AddWidgetModal onPress={addWidget}/>
             <ReactGridLayout className="layout" layout={layout} cols={columns} rowHeight={50} width={1000} onResize={handleResize}>
 
                 {layout.map((item, i) =>

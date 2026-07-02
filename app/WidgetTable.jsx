@@ -1,6 +1,5 @@
 
-import { Button, Table} from '@heroui/react';
-import {useState} from "react";
+import { Table} from '@heroui/react';
 
 const WidgetTable = (props) => {
 
