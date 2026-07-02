@@ -4,7 +4,8 @@ import { useState } from "react";
 
 export function AddWidgetModal(props) {
 
-    const [selected, setSelected] = useState(new Set(["table"]));
+    const [selected, setSelected] = useState(new Set(["Table"]));
+    const [name, setName ] = useState()
 
     return (
         <Modal>
@@ -19,13 +20,15 @@ export function AddWidgetModal(props) {
                         <Modal.Body className="p-6">
                             <Surface variant="default">
                                 <form className="flex flex-col gap-4">
-                                    <TextField className="w-full" name="name" type="text" variant="secondary">
+                                    <TextField className="w-full" name="name" type="text" variant="secondary" onChange={
+                                        (name) => setName(name)
+                                    }>
                                         <Label>Widget name</Label>
                                         <Input placeholder="Widget name" />
                                     </TextField>
                                     <Dropdown>
                                         <Button aria-label="Menu" variant="secondary">
-                                            Widget type
+                                            {selected}
                                         </Button>
                                         <Dropdown.Popover className="min-w-[256px]">
                                             <Dropdown.Menu
@@ -35,15 +38,15 @@ export function AddWidgetModal(props) {
                                             >
                                                 <Dropdown.Section>
                                                     <Header>Select a widget type</Header>
-                                                    <Dropdown.Item id="table" textValue="table">
+                                                    <Dropdown.Item id="Table" textValue="Table">
                                                         <Dropdown.ItemIndicator />
                                                         <Label>Table</Label>
                                                     </Dropdown.Item>
-                                                    <Dropdown.Item id="lineChart" textValue="lineChart">
+                                                    <Dropdown.Item isDisabled id="Line Chart" textValue="Line Chart">
                                                         <Dropdown.ItemIndicator />
                                                         <Label>Line Chart</Label>
                                                     </Dropdown.Item>
-                                                    <Dropdown.Item id="barChart" textValue="barChart">
+                                                    <Dropdown.Item isDisabled id="Bar Chart" textValue="Bar Chart">
                                                         <Dropdown.ItemIndicator />
                                                         <Label>Bar Chart</Label>
                                                     </Dropdown.Item>
@@ -58,7 +61,7 @@ export function AddWidgetModal(props) {
                             <Button slot="close" variant="secondary">
                                 Cancel
                             </Button>
-                            <Button onPress={() => props.onPress()} slot="close">Add Widget</Button>
+                            <Button onPress={() => props.onPress(name)} slot="close">Add Widget</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>

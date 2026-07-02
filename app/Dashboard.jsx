@@ -16,7 +16,7 @@ function Dashboard( props ) {
     const [defaultWidth] = useState(4);
     const [totalWidgets, setTotalWidgets] = useState(0);
 
-    const addWidget = () => {
+    const addWidget = (name, type) => {
 
         const maxY = layout.length === 0 ? 0 : Math.max(...layout.map((item) =>  {
             return item.y;
@@ -30,7 +30,7 @@ function Dashboard( props ) {
         const xValue = addX > 8 ? 0 : addX;
         const yValue = addX > columns - defaultWidth ? maxY + 1 : maxY;
 
-        const newLayout = [...layout, { i: `key-${totalWidgets + 1}`, x:xValue, y: yValue, w: 4, h: 2, name: `Panel ${layout.length + 1}` }]
+        const newLayout = [...layout, { i: `key-${totalWidgets + 1}`, x:xValue, y: yValue, w: 4, h: 2, name: name ? name : `Panel ${layout.length + 1}` }]
         setLayout(newLayout);
         setTotalWidgets(totalWidgets + 1)
     }
