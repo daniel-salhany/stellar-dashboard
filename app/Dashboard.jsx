@@ -3,8 +3,9 @@
 import ReactGridLayout, { useContainerWidth } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import { Button } from '@heroui/react';
+import { Button, Table} from '@heroui/react';
 import {useState} from "react";
+import WidgetTable from './WidgetTable'
 
 
 function Dashboard( props ) {
@@ -57,6 +58,7 @@ function Dashboard( props ) {
                     (
 
                         <div key={item.i}  className="bg-gray-200" style={{fontSize: 14, fontWeight: 'bold',}}>{item.name}
+                            <div style={{minHeight: 20}}>
                             <Button
                                 key={`button-${item.i}`}
                                 onClick={() => handleCloseItem(item.i)}
@@ -70,6 +72,10 @@ function Dashboard( props ) {
                                 }}
                             >X
                             </Button>
+                            </div>
+                            <div style={{marginTop: 20}}>
+                            <WidgetTable/>
+                            </div>
                         </div>
                     )
 
